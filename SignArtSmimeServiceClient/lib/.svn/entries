@@ -1,0 +1,77 @@
+10
+
+dir
+1840
+svn://svn.biznet.com.tr/msign/trunk/SignArtSmimeServiceClient/lib
+svn://svn.biznet.com.tr/msign
+
+
+
+2014-11-10T14:18:59.787888Z
+1839
+alper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e2eb3012-e1a6-6d4e-a006-697e321c75da
+
+SmimeLib
+dir
+
+CopyLibs
+dir
+
+nblibraries.properties
+file
+
+
+
+
+2015-01-14T12:36:35.355970Z
+49c44b0f1dcb2d112b92eddc4ff00b00
+2014-11-10T14:18:59.787888Z
+1839
+alper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+987
+
+junit
+dir
+
+JAX-WS-ENDORSED
+dir
+
+junit_4
+dir
+

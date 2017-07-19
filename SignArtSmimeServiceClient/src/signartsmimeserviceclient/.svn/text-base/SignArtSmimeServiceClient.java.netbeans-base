@@ -1,0 +1,149 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package signartsmimeserviceclient;
+
+import com.sun.istack.ByteArrayDataSource;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.util.Iterator;
+import java.util.List;
+import javax.activation.DataHandler;
+import tr.biznet.msign.service.ws.smime.DataToSignRequest;
+import tr.biznet.msign.service.ws.smime.DataToSignResponse;
+import tr.biznet.msign.service.ws.smime.FingerprintResponse;
+import tr.biznet.msign.service.ws.smime.SignatureResponse;
+import tr.biznet.msign.service.ws.smime.UserInfo;
+import tr.biznet.msign.service.ws.smime.VerificationResponse;
+import tr.biznet.signart.shell.wrapper.Certificate;
+
+/**
+ *
+ * @author alper.uzanulu
+ */
+public class SignArtSmimeServiceClient {
+
+    private static final String URL1 = "http://demo.biznet.com.tr/SignArt/SignArtSmimeService?wsdl";
+    private static final String URL2 = "http://localhost:8080/SignArt/SignArtSmimeService?wsdl";
+    public static void main(String[] args) throws FileNotFoundException, CertificateException, IOException {
+//        DataToSignRequest dataToSignRequest = new DataToSignRequest();
+//        UserInfo userInfo = new UserInfo();
+//        List list = Pkcs11Util.getCertificates();
+//        Iterator iter = list.iterator();
+//        X509Certificate cert = null;
+//        while(iter.hasNext()){
+//            cert = ((Certificate)iter.next()).getCertificate();
+//            break;
+//        }
+//        System.out.println(cert.toString());
+//
+//        URL url = new URL("file:///C://Users//alper.uzanulu//Desktop//mail.eml");
+//        DataHandler dataHandler = new DataHandler(url);
+//        String base64EncodedCertificate = Base64.encodeBytes(cert.getEncoded());
+//        dataToSignRequest.setBase64Certificate(base64EncodedCertificate);
+//        dataToSignRequest.setData(dataHandler);
+//        dataToSignRequest.setSignatureFormat("CADES_BES");
+//        userInfo.setUsername("alper");
+//        userInfo.setPassword("alper");
+//        String pin = "1234";
+//        DataToSignResponse dataToSignResponse = prepareDataToSign(dataToSignRequest, userInfo);
+//        byte[] sig = Pkcs11Util.sign(Base64.decode(dataToSignResponse.getDataToSignBase64()), cert, pin);
+//        String signature = Base64.encodeBytes(sig);
+//        SignatureResponse signatureResponse = sign(signature, dataToSignResponse.getSignToken(), userInfo);
+//        for (String s : signatureResponse.getSignatureErrors()) {
+//            System.out.println(s);
+//        }
+//        System.out.println(signatureResponse.getSignatureStatus());
+//        byte [] signedData = signatureResponse.getSignedData();
+//        InputStream is = new ByteArrayInputStream(signedData);
+//        writeToFile(is);
+//        is.close();
+        verifyFile();
+    }
+    
+    private static void verifyFile() throws IOException{
+        //FileInputStream fis = new FileInputStream("C:\\Users\\alper.uzanulu\\Desktop\\[KEP İletisi] 1403.1139.eml");
+        // FileInputStream fis = new FileInputStream("C:\\Users\\alper.uzanulu\\Desktop\\[KEP İletisi] 1403.1144.eml");
+        FileInputStream fis = new FileInputStream("C:\\Users\\alper.uzanulu\\Desktop\\ptt\\[KEP Delili-HS01 Tarafından Kabul Edildi]2409.1055.eml");
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[16384];
+
+        while ((nRead = fis.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
+
+        byte[] verifyData = buffer.toByteArray();
+        InputStream is = new ByteArrayInputStream(verifyData);
+        InputStreamDataSource inputStreamDataSource = new InputStreamDataSource(is);
+        DataHandler verifyDataHandler = new DataHandler(inputStreamDataSource);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername("alperdemo");
+        userInfo.setPassword("alperdemo");
+        VerificationResponse verificationResponse = verify(verifyDataHandler, userInfo);
+        return;
+    }
+    
+    private static void writeToFile(InputStream is) throws FileNotFoundException, IOException{
+        OutputStream os;
+        File f = new File("C:\\Users\\alper.uzanulu\\Desktop\\verifyData");
+        os = new FileOutputStream(f);
+        
+        int read = 0;
+        byte[] bytes = new byte[1024];
+
+        while ((read = is.read(bytes)) != -1) {
+            os.write(bytes, 0, read);
+        }
+        System.out.println("Dosyaya yazma tamamlandı");
+        os.close();
+    }
+    private static DataToSignResponse prepareDataToSign(tr.biznet.msign.service.ws.smime.DataToSignRequest dataToSignRequest, tr.biznet.msign.service.ws.smime.UserInfo userInfo) throws MalformedURLException {
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service service = new tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service(new URL(URL2));
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService port = service.getSignArtSmimeServicePort();
+        return port.prepareDataToSign(dataToSignRequest, userInfo);
+    }
+
+    private static SignatureResponse mobileSign(java.lang.String signToken, tr.biznet.msign.service.ws.smime.UserInfo userInfo) throws MalformedURLException {
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service service = new tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service(new URL(URL2));
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService port = service.getSignArtSmimeServicePort();
+        return port.mobileSign(signToken, userInfo);
+    }
+
+    private static FingerprintResponse prepareFingerprint(tr.biznet.msign.service.ws.smime.FingerPrintRequest fingerPrintRequest, tr.biznet.msign.service.ws.smime.UserInfo userInfo) throws MalformedURLException {
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service service = new tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service(new URL(URL2));
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService port = service.getSignArtSmimeServicePort();
+        return port.prepareFingerprint(fingerPrintRequest, userInfo);
+    }
+
+    private static SignatureResponse sign(java.lang.String signature, java.lang.String signToken, tr.biznet.msign.service.ws.smime.UserInfo userInfo) throws MalformedURLException {
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service service = new tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service(new URL(URL2));
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService port = service.getSignArtSmimeServicePort();
+        return port.sign(signature, signToken, userInfo);
+    }
+
+    private static VerificationResponse verify(javax.activation.DataHandler smimeMessage, tr.biznet.msign.service.ws.smime.UserInfo userInfo) throws MalformedURLException {
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service service = new tr.biznet.msign.service.ws.smime.SignArtSmimeService_Service(new URL(URL2));
+        tr.biznet.msign.service.ws.smime.SignArtSmimeService port = service.getSignArtSmimeServicePort();
+        return port.verify(smimeMessage, userInfo);
+    }
+    
+    
+    
+    
+}

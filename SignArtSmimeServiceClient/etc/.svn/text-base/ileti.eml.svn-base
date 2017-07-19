@@ -1,0 +1,62 @@
+Delivered-To: alper.uzanulu@biznet.com.tr
+Received: by 10.140.106.37 with SMTP id d34csp232536qgf;
+        Fri, 7 Nov 2014 06:12:31 -0800 (PST)
+X-Received: by 10.107.34.9 with SMTP id i9mr846100ioi.33.1415369551612;
+        Fri, 07 Nov 2014 06:12:31 -0800 (PST)
+Return-Path: <uzanulualper@gmail.com>
+Received: from mail-ig0-x22e.google.com (mail-ig0-x22e.google.com. [2607:f8b0:4001:c05::22e])
+        by mx.google.com with ESMTPS id 42si14475995iok.45.2014.11.07.06.12.31
+        for <alper.uzanulu@biznet.com.tr>
+        (version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+        Fri, 07 Nov 2014 06:12:31 -0800 (PST)
+Received-SPF: pass (google.com: domain of uzanulualper@gmail.com designates 2607:f8b0:4001:c05::22e as permitted sender) client-ip=2607:f8b0:4001:c05::22e;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of uzanulualper@gmail.com designates 2607:f8b0:4001:c05::22e as permitted sender) smtp.mail=uzanulualper@gmail.com;
+       dkim=pass header.i=@gmail.com;
+       dmarc=pass (p=NONE dis=NONE) header.from=gmail.com
+Received: by mail-ig0-f174.google.com with SMTP id hn18so12820790igb.7
+        for <alper.uzanulu@biznet.com.tr>; Fri, 07 Nov 2014 06:12:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=rKFVIPggFoyV/2hgCw8dBGbvDZeswer4shNSLTeJNGA=;
+        b=ybFDuHIxmFDUZaJy70Onrkz5EmfICdZ+2/NH6nqztzRkaPOBU2C9A8+vz4P/o5enY0
+         5QOAl1+WJHbFo7CglLHsYu45TkEPR5oN9unWATBjdOZ1ZDFMdCFTcLNUQgTYDSfmapF4
+         llpKjJ09bt/9QO9JFYsQvcsTMZLUtlOhGs5JUxV9Eh/lq3bY1UXyBcv+l8v9P+QKXgk/
+         k37A/LXtfIr7ikD8dY6wJ7oPymH1fcVsnZHpVvgS5iEKgNwxO/PDW8PYWwkT4SrCcrFf
+         jByWD8vs97do63SU5H4FkxPMA8j/PtrMbTljgK6mIyS2ZOgQ+Q1q/LUZajJCOp3WsxZy
+         rr8w==
+MIME-Version: 1.0
+X-Received: by 10.42.27.9 with SMTP id h9mr18832068icc.32.1415369551395; Fri,
+ 07 Nov 2014 06:12:31 -0800 (PST)
+Received: by 10.107.18.130 with HTTP; Fri, 7 Nov 2014 06:12:31 -0800 (PST)
+Date: Fri, 7 Nov 2014 16:12:31 +0200
+Message-ID: <CAMVssh2mJmFj_nhtJEfYgDf6C_6wgSsWBMfg_VtXnu8jZzzApQ@mail.gmail.com>
+Subject: deneme
+From: alper uzanulu <uzanulualper@gmail.com>
+To: alper.uzanulu@biznet.com.tr
+Content-Type: multipart/mixed; boundary=20cf303f6320569220050745675f
+
+--20cf303f6320569220050745675f
+Content-Type: multipart/alternative; boundary=20cf303f632056921c050745675d
+
+--20cf303f632056921c050745675d
+Content-Type: text/plain; charset=UTF-8
+
+test
+
+--20cf303f632056921c050745675d
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">test</div>
+
+--20cf303f632056921c050745675d--
+
+--20cf303f6320569220050745675f
+Content-Type: text/plain; charset=US-ASCII; name="ek.txt"
+Content-Disposition: attachment; filename="ek.txt"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_i27mhfsu0
+
+YWxwZXI=
+--20cf303f6320569220050745675f--
